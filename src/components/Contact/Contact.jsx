@@ -1,14 +1,23 @@
 
+import { deleteContact } from '../../redux/contactsSlice';
 import css from './Contact.module.css'
+import { useDispatch } from 'react-redux';
 
-const Contact = ({name, number, id, onDeleteContact}) => {
+
+const Contact = ({ contact }) => {
+  const dispatch = useDispatch();
+
+  const onDeleteContact = () => {
+    dispatch(deleteContact(contact.id));
+  };
+  
   return (
       <div className={css.contactCard}>
           <div>
-              <p className={css.contactName}>👤 {name}</p>
-          <p  className={css.contactNumber}>📞 {number}</p>
+              <p className={css.contactName}>👤 {contact.name}</p>
+          <p  className={css.contactNumber}>📞 {contact.number}</p>
           </div>
-          <div><button className={css.contactDelete} onClick={()=>onDeleteContact(id)}>❌</button></div>
+          <div><button className={css.contactDelete} onClick={onDeleteContact}>❌</button></div>
     </div>
   )
 }
